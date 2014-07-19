@@ -57,7 +57,7 @@
             var img = new Image();
             
             img.onload = function() {
-                var bg = 'url('+ story.image +') no-repeat center';
+                var bg = 'url(\''+ story.image +'\') no-repeat center';
                 $('#story' + i).css({
                     'background': bg,
                     'background-size': 'cover'
@@ -66,6 +66,9 @@
                 if(i < num) {
                     loadImage(i);
                 }
+            };
+            img.onerror = function() {
+                console.log('error loading image:', story.image);
             };
 
             img.src = story.image;
