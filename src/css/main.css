@@ -32,6 +32,12 @@ a, a:visited {
     font-size: 0.9em;
     color: #999;
 }
+#updated{
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #59889d;
+    margin-top:1em;
+}
 
 /* visual */
 .container {
@@ -55,12 +61,6 @@ a, a:visited {
     border: 1px solid #fff;
     height: 240px;
     background: url(img/loading.gif) no-repeat center;
-}
-
-#updated{
-    font-size: 0.9em;
-    color: #9B1518;
-    margin-top:1em;
 }
 #results0 a {
     border-left: none;
