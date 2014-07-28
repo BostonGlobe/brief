@@ -34,7 +34,7 @@ a, a:visited {
     color: #999;
 }
 .bothResults {
-    max-width: 584px;
+    max-width: 480px;
     margin: 0 auto;
     padding-bottom: 2em;
     height: 100%;
@@ -42,14 +42,14 @@ a, a:visited {
 }
 .results {
     width: 50%;
-    max-width: 292px;
+    max-width: 240px;
     float: left;
 }
 .results a {
     display: block;
     width: 100%;
     border: 1px solid #fff;
-    height: 292px;
+    height: 240px;
     background: url(img/loading.gif) no-repeat center;
 }
 
@@ -63,4 +63,16 @@ a, a:visited {
 }
 #results1 a {
     border-right: none;
+}
+
+@media only screen and (min-width: 480px) {
+    .results {
+        max-width: 480px;
+    }
+    .story {
+        max-height: 240px;
+    }
+    .bothResults {
+        max-width: 960px;
+    }
 }
