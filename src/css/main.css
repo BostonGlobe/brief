@@ -46,7 +46,7 @@ a, a:visited {
 .bothResults {
     max-width: 480px;
     margin: 0 auto;
-    padding-bottom: 2em;
+    padding-bottom: 2px;
     height: 100%;
     overflow: hidden;
 }
@@ -63,10 +63,10 @@ a, a:visited {
     background: url(img/loading.gif) no-repeat center;
 }
 #results0 a {
-    border-left: none;
+    border-left: 2px solid #fff;
 }
 #results1 a {
-    border-right: none;
+    border-right: 2px solid #fff;
 }
 
 @media only screen and (min-width: 480px) {
