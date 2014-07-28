@@ -1,3 +1,4 @@
+/* common */
 * {
     margin: 0;
     padding: 0;
@@ -5,17 +6,15 @@
     -moz-box-sizing: border-box;
 }
 body {
-    font: 15px/22px Georgia, serif;
+    font: 16px/23px Helvetica, Arial, serif;
+    font-weight: 300;
 }
 
 p {
-    color: #464646;
+    color: #676767;
 }
 a, a:visited {
     color: #262626;
-}
-.container {
-    text-align: center;
 }
 .logo a {
     display: block;
@@ -32,6 +31,11 @@ a, a:visited {
     margin: 0.5em 0;
     font-size: 0.9em;
     color: #999;
+}
+
+/* visual */
+.container {
+    text-align: center;
 }
 .bothResults {
     max-width: 480px;
