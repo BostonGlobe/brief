@@ -54,6 +54,9 @@
                 console.log('error loading image:', story.image);
             };
 
+            if(story.image.indexOf('logo-bg-small-square') > -1) {
+                story.image = 'img/bg.jpg';
+            }
             img.src = story.image;
         };
 
