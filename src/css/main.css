@@ -63,6 +63,7 @@ a.story {
 @media only screen and (min-width: 760px) {
     .results {
         max-width: 960px;
+        padding-bottom: 20px;
     }
     a.story {
         border-left: 2px solid #fff;
