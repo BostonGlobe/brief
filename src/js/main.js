@@ -3,8 +3,6 @@
         if(result) {
             if(result.data) {
                 displayStories(result.data);
-                resize();
-                $(window).on('resize', resize);
             }
             if(result.updated) {
                 showTime(result.updated);   
@@ -24,18 +22,7 @@
         document.getElementsByTagName('body')[0].appendChild(scriptData);
     }
 
-    function resize() {
-        var w = $('.results a').width();
-
-        $('.results a').css({
-            height: w
-        });
-    }
-
     function displayStories(data) {
-        var results0 = $('#results0');
-        var results1 = $('#results1');
-
         var num = data.length;
         if(data.length % 2 === 1) {
             num -=1;
@@ -44,11 +31,7 @@
         for(var x = 0; x < num; x++ ) {
             var story = data[x];
             var el = $('<a class="story" id="story' + x + '" href="'+ story.url + '"></a>');
-            if(x % 2 === 0) {
-                results0.append(el);
-            } else {
-                results1.append(el);
-            }
+            $('.results').append(el);
         }
         
         var loadImage = function(i) {
@@ -57,7 +40,7 @@
             var img = new Image();
             
             img.onload = function() {
-                var bg = 'url(\''+ story.image +'\') no-repeat center';
+                var bg = 'url(\''+ story.image +'\') no-repeat 50% 25%';
                 $('#story' + i).css({
                     'background': bg,
                     'background-size': 'cover'
