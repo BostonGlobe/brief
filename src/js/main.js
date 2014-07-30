@@ -61,12 +61,8 @@
 
                 //handling strange cases
                 //bg logo
-                if(story.image.indexOf('logo-bg-small-square') > -1) {
+                if(replaceWithLogo(story.image)) {
                     story.image = 'img/bg.jpg';
-                }
-                //staff drawing
-                if(story.image.indexOf('Staff/Caricatures') > -1) {
-                    story.image = 'img/bg.jpg';   
                 }
                 img.src = story.image;     
             } else {
@@ -78,6 +74,21 @@
         };
 
         loadImage(0);
+    }
+
+    function replaceWithLogo(img) {
+        if(img.indexOf('logo-bg-small-square') > -1) {
+            return true;
+        }
+        //staff drawing
+        if(img.indexOf('Staff/Caricatures') > -1) {
+            return true;   
+        }
+        //scribblelive
+        if(img.indexOf('avatars.scribblelive')) {
+            return true;
+        }
+        return false;
     }
 
     function showTime(updated) {
