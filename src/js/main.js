@@ -40,33 +40,41 @@
         var loadImage = function(i) {
             var story = data[i];
             
-            var img = new Image();
+            if(story.image) {
+                 var img = new Image();
             
-            img.onload = function() {
-                var bg = 'url(\''+ story.image +'\') no-repeat 50% 25%';
-                $('#story' + i).css({
-                    'background': bg,
-                    'background-size': 'cover'
-                });
-                i++;
+                img.onload = function() {
+                    var bg = 'url(\''+ story.image +'\') no-repeat 50% 25%';
+                    $('#story' + i).css({
+                        'background': bg,
+                        'background-size': 'cover'
+                    });
+                    i++;
+                    if(i < num) {
+                        loadImage(i);
+                    }
+                };
+
+                img.onerror = function() {
+                    console.log('error loading image:', story.image);
+                };
+
+                //handling strange cases
+                //bg logo
+                if(story.image.indexOf('logo-bg-small-square') > -1) {
+                    story.image = 'img/bg.jpg';
+                }
+                //staff drawing
+                if(story.image.indexOf('Staff/Caricatures') > -1) {
+                    story.image = 'img/bg.jpg';   
+                }
+                img.src = story.image;     
+            } else {
+                 i++;
                 if(i < num) {
                     loadImage(i);
                 }
-            };
-            img.onerror = function() {
-                console.log('error loading image:', story.image);
-            };
-
-            //handling strange cases
-            //bg logo
-            if(story.image.indexOf('logo-bg-small-square') > -1) {
-                story.image = 'img/bg.jpg';
             }
-            //staff drawing
-            if(story.image.indexOf('Staff/Caricatures') > -1) {
-                story.image = 'img/bg.jpg';   
-            }
-            img.src = story.image;
         };
 
         loadImage(0);
