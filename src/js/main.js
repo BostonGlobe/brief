@@ -85,7 +85,7 @@
             return true;   
         }
         //scribblelive
-        if(img.indexOf('avatars.scribblelive')) {
+        if(img.indexOf('avatars.scribblelive') > -1) {
             return true;
         }
         return false;
