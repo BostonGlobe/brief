@@ -54,8 +54,14 @@
                 console.log('error loading image:', story.image);
             };
 
+            //handling strange cases
+            //bg logo
             if(story.image.indexOf('logo-bg-small-square') > -1) {
                 story.image = 'img/bg.jpg';
+            }
+            //staff drawing
+            if(story.image.indexOf('Staff/Caricatures') > -1) {
+                story.image = 'img/bg.jpg';   
             }
             img.src = story.image;
         };
