@@ -31,7 +31,10 @@
         for(var x = 0; x < num; x++ ) {
             var story = data[x];
             var el = $('<a class="story" id="story' + x + '" href="'+ story.url + '"></a>');
-            $('.results').append(el);
+            if(story.image) {
+                $('.results').append(el);    
+            }
+            
         }
         
         var loadImage = function(i) {
