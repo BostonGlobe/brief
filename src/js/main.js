@@ -1,6 +1,5 @@
 (function() {
     window.trending = function(result) {
-        console.log(result);
         if(result) {
             if(result.data) {
                 displayStories(result.data);
