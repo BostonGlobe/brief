@@ -52,13 +52,19 @@
 
         var loadImage = function(i) {
             var story = data[i];
-            
             var img = new Image();
+            var replace = false;
             
             img.onload = function() {
                 var bg = 'url(\''+ story.image +'\')';
                 var el = document.getElementById('story-image-' + i);
                 el.style.backgroundImage = bg;
+
+                //center if ap or bg
+                if(story.image === 'img/ap.jpg' || story.image === 'img/bg.jpg') {
+                    el.style.backgroundPosition = '50% 50%';
+                }
+
                 i++;
                 if(i < num) {
                     loadImage(i);
