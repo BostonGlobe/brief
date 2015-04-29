@@ -121,15 +121,15 @@
     };
 
     var shortenDescription = function(str) {
-        var max = 250;
+        var max = 240;
         if(str.length > max) {
             var sub = str.substring(0, max);
-            var lastSpace = sub.lastIndexOf(' ')
+            var lastSpace = sub.lastIndexOf(' ');
             return sub.substring(0, lastSpace) + '...';
         } else {
             return str;
         }
-    }
+    };
 
     init();
 })();

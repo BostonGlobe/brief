@@ -11,7 +11,7 @@ body {
 }
 
 p {
-    color: #676767;
+    color: #666;
 }
 
 a, a:visited {
@@ -28,7 +28,10 @@ a, a:visited {
 }
 
 .header {
-    padding: 1em 1em .5em;
+    padding-bottom: 0.25em;
+    border-bottom: 1px dotted #ddd;
+    max-width: 480px;
+    margin: 0 auto;
 }
 
 .explanation {
@@ -41,16 +44,16 @@ a, a:visited {
     font-size: 0.8em;
     font-weight: bold;
     color: #59889d;
-    margin-top:1em;
+    margin-top: 1em;
 }
 
 .container {
     text-align: center;
-    padding: 0 1em;
+    padding: 1em;
 }
 
 #results {
-    margin: 1em auto;
+    margin: 1.5em auto;
     width: 100%;
     max-width: 480px;
     height: 100%;
@@ -88,7 +91,7 @@ a, a:visited {
 }
 
 .description {
-    font-size: 0.85em;
+    font-size: 0.9em;
     margin-top: 1em;
     text-align: left;
 }
