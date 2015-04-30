@@ -22,6 +22,7 @@
     };
 
     var displayStories = function(data) {
+        console.log(data);
         var num = data.length;
         if(data.length % 2 === 1) {
             num -=1;
@@ -29,12 +30,13 @@
 
         for(var x = 0; x < num; x++ ) {
             var story = data[x];
-            var title = parseTitle(story.title); 
+            var hed = parseTitle(story.hed); 
             var description = shortenDescription(story.description);
 
             var html = '<a href="' + story.url + '">';
-            html += '<h1 class="headline">' + title + '</h1>';
+            html += '<div class="section-and-date"><p class="section">' + story.section + '</p><p class="date">' + story.date + '</p></div>';
             html += '<div class="image" id="story-image-' + x + '"></div>';
+            html += '<h1 class="hed">' + hed + '</h1>';
             html += '<p class="description">' + description + '</p></div>';
             html += '</a>';
 
