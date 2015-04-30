@@ -83,7 +83,7 @@
                 }
             };
 
-            //handling strange cases and replace with logo
+            //handling strange cases and replace with logo and optimal image size
             if(replaceWithLogo(story.image)) {
                 story.image = 'img/bg.jpg';
             } else {
@@ -91,6 +91,7 @@
                     story.image = story.image.replace('585w', '835w');    
                 }
             }
+
             img.src = story.image;     
         };
 
