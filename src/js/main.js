@@ -1,5 +1,5 @@
 (function() {
-    window.trending = function(result) {
+    window.brief = function(result) {
         if(result) {
             if(result.data) {
                 displayStories(result.data);
@@ -13,7 +13,7 @@
     };
 
     var init = function() {
-        var url = 'http://russellgoldenberg.com/globe/brief/trending.jsonp?';
+        var url = 'https://www.boston.com/partners/brief.jsonp?';
         var scriptData = document.createElement('script');
         var date = new Date();
         var v = '_=' + date.getTime();
