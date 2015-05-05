@@ -126,7 +126,7 @@
 
     var showTime = function(updated) {
         var el = document.getElementById('updated');
-        el.innerText = 'Last updated: ' + updated.time;
+        el.innerText = 'Updated at ' + updated.time;
     };
 
     var shortenDescription = function(str) {
