@@ -22,19 +22,16 @@
     };
 
     var displayStories = function(data) {
+        data = validateStories(data);
         var num = data.length;
         var threshold = 640;
         var width = window.innerWidth * window.devicePixelRatio;
         var biggerImage = width > threshold;
-
-        if(data.length % 2 === 1) {
-            num -=1;
-        }
+        var results = document.getElementById('results');
 
         for(var x = 0; x < num; x++ ) {
             var story = data[x];
             var description = shortenDescription(story.description);
-
             var html = '<a href="' + story.url + '">';
             html += '<div class="section-and-date"><p class="section">' + story.section + '</p><p class="date">' + story.date + '</p></div>';
             html += '<div class="image" id="story-image-' + x + '"></div>';
@@ -42,7 +39,6 @@
             html += '<p class="description">' + description + '</p></div>';
             html += '</a>';
 
-            var results = document.getElementById('results');
             var el = document.createElement('div');
 
             el.innerHTML = html;
@@ -96,6 +92,18 @@
         };
 
         loadImage(0);
+    };
+
+    var validateStories = function(data) {
+        var num = data.length;
+        for(var i = 0; i < num; i++) {
+            if(data[i].hed.indexOf('The Big Picture') > -1) {
+                data.splice(i, 1);
+                num = data.length;
+            }
+        }
+
+        return data;
     };
 
     var replaceWithLogo = function(img) {
