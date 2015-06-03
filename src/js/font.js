@@ -2,7 +2,7 @@
 * http://filamentgroup.com/
 * Copyright (c) 2014 Filament Group *//*! EnhanceJS: a progressive enhancement boilerplate. Copyright 2014 @scottjehl, Filament Group, Inc. Licensed MIT */
 (function( window, undefined ) {
-  var filepath = 'http://apps.bostonglobe.com/common/font/';
+  var filepath = 'https://apps.bostonglobe.com/common/font/';
   // Enable JS strict mode
   "use strict";
   // Define some variables to be used throughout this file
