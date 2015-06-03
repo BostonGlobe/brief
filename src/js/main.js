@@ -79,6 +79,8 @@
                 }
             };
 
+            //https!
+            story.image = story.image.replace('http', 'https');
             //handling strange cases and replace with logo and optimal image size
             if(replaceWithLogo(story.image)) {
                 story.image = 'img/bg.jpg';
