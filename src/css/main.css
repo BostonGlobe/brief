@@ -38,7 +38,7 @@ a, a:visited {
 .explanation {
     margin: 0.5em 0;
     font-size: 0.9em;
-    color: #aaa;
+    color: #888;
 }
 
 #updated{
@@ -86,7 +86,7 @@ a, a:visited {
     float: left;
     width: 50%;
     text-align: right;
-    color: #aaa;
+    color: #888;
 }
 
 .image {

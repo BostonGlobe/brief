@@ -35,7 +35,7 @@
             var html = '';
             html += '<div class="section-and-date"><p class="section">' + story.section + '</p><p class="date">' + story.date + '</p></div>';
             html += '<div class="image" id="story-image-' + x + '"></div>';
-            html += '<a href="' + story.url + '">';
+            html += '<a title="' + story.hed + '" href="' + story.url + '">';
             html += '<h1 class="hed">' + story.hed + '</h1>';
             html += '<p class="description">' + description + '</p></div>';
             html += '</a>';
