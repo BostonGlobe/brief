@@ -6,8 +6,10 @@
     -moz-box-sizing: border-box;
 }
 body {
-    font: 16px/23px Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-family:  Helvetica, Arial, sans-serif;
     font-weight: 300;
+    line-height: 1.6;
 }
 
 p {
@@ -113,12 +115,12 @@ a, a:visited {
     margin: 0.5em 0;
     color: #333;
     font-family: 'Miller', Georgia, serif;
-    font-size: 1.3em;
+    line-height: 1.4;
+    font-size: 1.25em;
     letter-spacing: normal;
 }
 
 .description {
-    font-size: 0.9em;
     font-family: Georgia, serif;
     margin: 0;
 }
