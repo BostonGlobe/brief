@@ -1,5 +1,5 @@
 (function() {
-    var _liteSvg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="265.197px" height="560.316px" viewBox="0 0 265.197 560.316" enable-background="new 0 0 265.197 560.316" xml:space="preserve"><g><g><path d="M59.965 560.316c0 0 194.421-421.925 194.443-421.986l10.789-23.997c-41.824 12.02-135.271 34.902-135.568 35.8 C139.4 122.8 181.5 0 183.3 0c-39.976 0-79.952 0-119.927 0L51.177 57.938L0.001 267.933l135.19-36.806L59.965 560.316z"/></g></g></svg>';
+    var _liteSvg = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="33.15px" height="70.039px" viewBox="116.024 245.139 33.15 70.039" enable-background="new 116.024 245.139 33.15 70.039" xml:space="preserve"><g><g><path d="M123.52,315.178c0,0,24.303-52.74,24.305-52.748l1.35-3c-5.229,1.502-16.91,4.363-16.947,4.475c1.222-3.417,6.484-18.767,6.708-18.767c-4.996,0-9.993,0-14.99,0l-1.524,7.242l-6.397,26.249l16.899-4.601L123.52,315.178z"/></g></g></svg>';
 
     window.brief = function(result) {
         if(result) {
