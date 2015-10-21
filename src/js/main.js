@@ -1,5 +1,5 @@
 (function() {
-    var _liteSvg = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="33.15px" height="70.039px" viewBox="116.024 245.139 33.15 70.039" enable-background="new 116.024 245.139 33.15 70.039" xml:space="preserve"><g><g><path d="M123.52,315.178c0,0,24.303-52.74,24.305-52.748l1.35-3c-5.229,1.502-16.91,4.363-16.947,4.475c1.222-3.417,6.484-18.767,6.708-18.767c-4.996,0-9.993,0-14.99,0l-1.524,7.242l-6.397,26.249l16.899-4.601L123.52,315.178z"/></g></g></svg>';
+    // var _liteSvg = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="33.15px" height="70.039px" viewBox="116.024 245.139 33.15 70.039" enable-background="new 116.024 245.139 33.15 70.039" xml:space="preserve"><g><g><path d="M123.52,315.178c0,0,24.303-52.74,24.305-52.748l1.35-3c-5.229,1.502-16.91,4.363-16.947,4.475c1.222-3.417,6.484-18.767,6.708-18.767c-4.996,0-9.993,0-14.99,0l-1.524,7.242l-6.397,26.249l16.899-4.601L123.52,315.178z"/></g></g></svg>';
 
     window.brief = function(result) {
         if(result) {
@@ -37,7 +37,7 @@
             var html = '';
             html += '<div class="section-and-date"><p class="section">' + story.section + '</p><p class="date">' + story.date + '</p></div>';
             html += '<div class="image" id="story-image-' + x + '">';
-            html += '<a class="lite" href="' + getLiteUrl(story.url) + '">' + _liteSvg + '</a>';
+            // html += '<a class="lite" href="' + getLiteUrl(story.url) + '">' + _liteSvg + '</a>';
             html += '</div>';
             html += '<a title="' + story.hed + '" href="' + story.url + '">';
             html += '<h1 class="hed">' + story.hed + '</h1>';
@@ -101,15 +101,15 @@
         loadImage(0);
     };
 
-    var getLiteUrl = function(url) {
-        var base = 'http://www.boston.com/newsprojects/globe-lite/article.php?url=';
-        if(url.indexOf('www.') === -1) {
-            var split = url.split('bostonglobe.com');
-            split.splice(1,0,'www.bostonglobe.com');
-            url = split.join('');
-        }
-        return base + encodeURIComponent(url);
-    };
+    // var getLiteUrl = function(url) {
+    //     var base = 'http://www.boston.com/newsprojects/globe-lite/article.php?url=';
+    //     if(url.indexOf('www.') === -1) {
+    //         var split = url.split('bostonglobe.com');
+    //         split.splice(1,0,'www.bostonglobe.com');
+    //         url = split.join('');
+    //     }
+    //     return base + encodeURIComponent(url);
+    // };
 
     var validateStories = function(data) {
         var num = data.length;

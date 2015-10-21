@@ -51,7 +51,7 @@ a, a:visited {
 }
 
 .container {
-    padding: 1em;
+    padding: 1em 0;
 }
 
 #results {
@@ -98,7 +98,8 @@ a, a:visited {
     background-position: 50% 25%;
     background-size: cover;
     background-repeat: no-repeat;
-    border: 1px solid #efefef;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
     position: relative;
 }
 
@@ -143,4 +144,10 @@ a.lite {
     fill: rgba(255,255,255,0.6);
     stroke: rgba(50,50,50,0.4);
     stroke-width: 1px;
+}
+
+@media only screen and (max-width: 500px) {
+    .story a, .section-and-date {
+        padding: 0 0.75em;
+    }
 }
