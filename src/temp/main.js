@@ -2,7 +2,8 @@
     var _data;
     var _choice = 'recent';
     var _biggerImage = false;
-    var _buttonElements = document.getElementsByClassName('btn');
+    var _buttonElements = document.getElementsByClassName('btn-choice');
+    var _loaded;
 
     var init = function() {
         loadData();
@@ -20,16 +21,23 @@
         for(var i = 0; i < _buttonElements.length; i++) {
             var el = _buttonElements[i];
             el.addEventListener('click', function(e) {
-                _choice = this.getAttribute('data-choice');
-                displayStories(_data[_choice]);
-                this.classList.add('selected');
-                if (this.nextElementSibling) {
-                    this.nextElementSibling.classList.remove('selected');
-                } else {
-                    this.previousElementSibling.classList.remove('selected');
+                if(_loaded) {
+                    _choice = this.getAttribute('data-choice');
+                    displayStories(_data[_choice]);
+                    this.classList.add('selected');
+                    if (this.nextElementSibling) {
+                        this.nextElementSibling.classList.remove('selected');
+                    } else {
+                        this.previousElementSibling.classList.remove('selected');
+                    }    
                 }
             }, false);
         }
+
+        var topEl = document.getElementsByClassName('btn-top')[0];
+        topEl.addEventListener('click', function(e) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+        }, false);
     };
 
     var loadData = function() {
@@ -62,7 +70,7 @@
         storiesGroup[1].classList.add('hide');
 
         storiesEl.classList.remove('hide');
-        document.body.scrollTop =document.documentElement.scrollTop = 0;
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     };
 
     var shouldDisplay = function(datum) {
@@ -203,6 +211,10 @@
 
     window.brief = function(result) {
         _data = result;
+        var loadingEl = document.getElementsByClassName('loading')[0];
+        var pEl = loadingEl.querySelectorAll('p')[0];
+        var bottomEl = document.getElementsByClassName('bottom')[0];
+        
         if(_data) {
 
             if(_data.recent) {
@@ -210,16 +222,19 @@
             }
 
             if(_data[_choice]) {
-                var data = _data[_choice];
-                displayStories(data);
+                displayStories(_data[_choice]);
             }
 
             if(_data.updated) {
                 showTime(_data.updated);   
             }
 
+            _loaded = true;
+            loadingEl.parentNode.removeChild(loadingEl);
+            bottomEl.classList.remove('hide');
+
         } else {
-            console.log('error loading data');
+            pEl.innerText = 'Error loading data.';
         }
     };
 

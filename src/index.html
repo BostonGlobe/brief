@@ -17,20 +17,26 @@
         </script>
     </head>
     <body>
-        <div class='container'>
+        <div class='container' id='top'>
             <div class='header'>
                 <div class='logo'><a href='http://bostonglobe.com'>
                     @@include('img/logo.svg')
                 </a></div>
                 <div class='explanation'>
-                    A brief look at <button class='btn selected' data-choice='recent'>new</button> &amp; <button class='btn' data-choice='chartbeat'>trending</button> stories
+                    A brief look at <button class='btn-choice selected' data-choice='recent'>new</button> &amp; <button class='btn-choice' data-choice='chartbeat'>trending</button> stories
                 </div>
                 <div class='updated'></div>
+            </div>
+            <div class='loading'>
+                <p>Loading...</p>
             </div>
             <div class='stories'>
                 <div class='stories-group stories--recent hide'></div>
                 <div class='stories-group stories--chartbeat hide'></div>
             </div>
+            <p class='bottom hide'>
+                <button class='btn-top'>Back to top</button>
+            </p>
         </div>
         <script>
             @@include('temp/main.js')

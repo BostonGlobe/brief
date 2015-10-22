@@ -64,7 +64,7 @@ a, a:visited {
     color: #262626;
 }
 
-.btn {
+button {
     border: none;
     background: none;
     font-size: 1em;
@@ -76,7 +76,7 @@ a, a:visited {
     cursor: pointer;
 }
 
-.btn.selected {
+button.selected {
     background-color: rgba(89, 136, 157, 0.8);
     color: #efefef;
 }
@@ -104,11 +104,16 @@ a, a:visited {
     margin-top: 0.25em;
 }
 
-.updated{
+.updated {
     font-size: 0.8em;
     font-weight: bold;
     color: #59889d;
     margin-top: 1em;
+}
+
+.loading p {
+    margin-top: 5em;
+    text-align: center;
 }
 
 .container {
@@ -130,11 +135,11 @@ a, a:visited {
 }
 
 .section-and-date {
-    margin-bottom: 0.25em;
     height: 100%;
     overflow: hidden;
     font-size: 0.8em;
     padding-top: 0.5em;
+    padding-bottom: 0.5em;
     border-top: 1px solid #efefef;
 }
 
@@ -211,6 +216,11 @@ a.lite {
     fill: rgba(255,255,255,0.6);
     stroke: rgba(50,50,50,0.4);
     stroke-width: 1px;
+}
+
+.bottom {
+    text-align:  center;
+    padding-bottom: 2em;
 }
 
 @media only screen and (max-width: 500px) {
