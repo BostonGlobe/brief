@@ -1,22 +1,18 @@
 var gulp = require('gulp'),
 	minifycss = require('gulp-minify-css'),
-	jshint = require('gulp-jshint'),
-	jshint_stylish = require('jshint-stylish'),
 	uglify = require('gulp-uglify'),
 	clean = require('gulp-clean'),
 	cache = require('gulp-cache'),
 	imagemin = require('gulp-imagemin'),
 	fileinclude = require('gulp-file-include');
 
-gulp.task('prod', ['js', 'css', 'img'], function() {
+gulp.task('prod', ['js', 'css'], function() {
 	gulp.start('html');
 });
 
 gulp.task('js', function() {
 	return gulp.src('src/js/*.js')
-		.pipe(jshint('.jshintrc'))
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(uglify())
+		// .pipe(uglify())
 		.pipe(gulp.dest('src/temp'));
 });
 
@@ -34,7 +30,7 @@ gulp.task('img', function() {
 
 gulp.task('html', function() {
 	return gulp.src('src/index.html')
-		.pipe(fileinclude())
+		.pipe(fileinclude('@@'))
 		.pipe(gulp.dest(''));
 });
 

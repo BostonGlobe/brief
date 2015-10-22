@@ -1,1 +1,227 @@
-!function(){window.brief=function(e){e?(e.data&&t(e.data),e.updated&&n(e.updated)):console.log("error loading data")};var e=function(){var e="https://www.boston.com/partners/brief.jsonp?",t=document.createElement("script"),a=new Date,i="_="+a.getTime();t.src=e+i+"?callback=?",document.getElementsByTagName("body")[0].appendChild(t)},t=function(e){e=a(e);for(var t=e.length,n=640,d=window.innerWidth*window.devicePixelRatio,o=d>n,s=document.getElementById("results"),c=0;t>c;c++){var g=e[c],l=r(g.description),m="";m+='<div class="section-and-date"><p class="section">'+g.section+'</p><p class="date">'+g.date+"</p></div>",m+='<div class="image" id="story-image-'+c+'">',m+="</div>",m+='<a title="'+g.hed+'" href="'+g.url+'">',m+='<h1 class="hed">'+g.hed+"</h1>",m+='<p class="description">'+l+"</p></div>",m+="</a>";var u=document.createElement("div");u.innerHTML=m,u.classList?u.classList.add("story"):u.className+=" story",s.appendChild(u)}var p=function(a){var n=e[a],r=new Image;r.onload=function(){var e="url('"+n.image+"')",i=document.getElementById("story-image-"+a);i.style.backgroundImage=e,("img/ap.jpg"===n.image||"img/bg.jpg"===n.image)&&(i.style.backgroundPosition="50% 50%"),a++,t>a&&p(a)},r.onerror=function(){console.log("error loading image:",n.image),a++,t>a&&p(a)},n.image=n.image.replace("http","https"),i(n.image)?n.image="img/bg.jpg":o&&(n.image=n.image.replace("585w","835w")),r.src=n.image};p(0)},a=function(e){for(var t=e.length,a=0;t>a;a++)e[a].hed.indexOf("The Big Picture")>-1&&(e.splice(a,1),t=e.length);return e},i=function(e){return e?e.indexOf("logo-bg-small-square")>-1?!0:e.indexOf("Staff/Caricatures")>-1?!0:e.indexOf("avatars.scribblelive")>-1?!0:!1:!0},n=function(e){var t=document.getElementById("updated");t.innerText="Updated at "+e.time},r=function(e){var t=240;if(e.length>t){var a=e.substring(0,t),i=a.lastIndexOf(" ");return a.substring(0,i)+"..."}return e};e()}();
+(function() {
+    var _data;
+    var _choice = 'recent';
+    var _biggerImage = false;
+    var _buttonElements = document.getElementsByClassName('btn');
+
+    var init = function() {
+        loadData();
+        setupSize();
+        setupEvents();
+    };
+
+    var setupSize = function() {
+        var threshold = 640;
+        var width = window.innerWidth * window.devicePixelRatio;
+        _biggerImage = width > threshold;
+    };
+
+    var setupEvents = function() {
+        for(var i = 0; i < _buttonElements.length; i++) {
+            var el = _buttonElements[i];
+            el.addEventListener('click', function(e) {
+                _choice = this.getAttribute('data-choice');
+                displayStories(_data[_choice]);
+                this.classList.add('selected');
+                if (this.nextElementSibling) {
+                    this.nextElementSibling.classList.remove('selected');
+                } else {
+                    this.previousElementSibling.classList.remove('selected');
+                }
+            }, false);
+        }
+    };
+
+    var loadData = function() {
+        var url = 'https://www.boston.com/partners/brief.jsonp?';
+        var scriptData = document.createElement('script');
+        var date = new Date();
+        var v = '_=' + date.getTime();
+        scriptData.src = url + v + '?callback=?';
+        document.getElementsByTagName('body')[0].appendChild(scriptData);
+    };
+
+    var displayStories = function(data) {
+        var num = data.length;
+        var storiesEl = document.getElementsByClassName('stories--' + _choice)[0];
+
+        if (storiesEl.querySelectorAll('.story').length < 1) {
+            for(var i = 0; i < num; i++ ) {
+                var datum = data[i];
+
+                if(shouldDisplay(datum)) {
+                    var html = createHTML(datum, i);
+                    storiesEl.appendChild(html);
+                }
+            }
+        }
+
+        // show this choice, hide other
+        var storiesGroup = document.getElementsByClassName('stories-group');
+        storiesGroup[0].classList.add('hide');
+        storiesGroup[1].classList.add('hide');
+
+        storiesEl.classList.remove('hide');
+        document.body.scrollTop =document.documentElement.scrollTop = 0;
+    };
+
+    var shouldDisplay = function(datum) {
+        if(!datum.description) {
+            return false;
+        }
+
+        var s = datum.section;
+        if (s === 'North' || s === 'South' || s === 'West' || s === 'Real estate') {
+            return false;
+        }
+
+        if(datum.hed.indexOf('The Big Picture') > -1) {
+            return false;
+        }
+
+        return true;
+    };
+
+    var createHTML = function(datum, i) {
+        var description = shortenDescription(datum.description);
+        var time = datum.diff ? datum.diff : datum.date;
+        
+        var html = '';
+        html += '<div class="section-and-date"><p class="section">' + datum.section + '</p><p class="date">' + time + '</p></div>';
+        html += '<div class="image">';
+        html += '</div>';
+        html += '<a title="' + datum.hed + '" href="' + datum.url + '">';
+        html += '<h1 class="hed">' + datum.hed + '</h1>';
+        html += '<p class="description">' + description + '</p></div>';
+        html += '</a>';
+
+        var el = document.createElement('div');
+
+        el.innerHTML = html;
+        el.classList.add('story');
+
+        setBgImage(el, datum);
+        
+        return el;
+    };
+
+    var setBgImage = function(el, datum) {
+        var imgEl = el.querySelectorAll('.image')[0];
+
+        if(replaceWithLogo(datum.image)) {
+            datum.image = 'img/bg.jpg';
+            imgEl.classList.add('hide');
+        } else {
+            img = new Image();
+            replace = false;
+
+            if(_biggerImage) {
+                datum.image = datum.image.replace('585w', '835w');    
+            }
+
+            //https!
+            datum.image = datum.image.replace('http:', 'https:');
+
+            var bg = 'url(\''+ datum.image +'\')';
+            imgEl.style.backgroundImage = bg;
+        }
+    };
+
+    var replaceWithLogo = function(img) {
+        if(!img) {
+            return true;
+        }
+        if(img.indexOf('logo-bg-small-square') > -1) {
+            return true;
+        }
+        //staff drawing
+        if(img.indexOf('Staff/Caricatures') > -1) {
+            return true;   
+        }
+        //scribblelive
+        if(img.indexOf('avatars.scribblelive') > -1) {
+            return true;
+        }
+        return false;
+    };
+
+    var showTime = function(updated) {
+        var el = document.getElementsByClassName('updated')[0];
+        el.innerText = 'Updated at ' + updated.time;
+    };
+
+    var shortenDescription = function(str) {
+        var max = 240;
+        if(str && str.length > max) {
+            var sub = str.substring(0, max);
+            var lastSpace = sub.lastIndexOf(' ');
+            return sub.substring(0, lastSpace) + '...';
+        } else {
+            return str;
+        }
+    };
+
+    var cleanRecent = function(data) {
+        data.sort(function(a, b){
+          return new Date(b.updated) - new Date(a.updated);
+        });
+
+        // est
+        var now = convertToTimezone(-4.0);
+
+        for (var i = 0; i < data.length; i++ ) {
+            var datum = data[i];
+            datum.diff = Math.round((now - new Date(datum.updated)) / 60000) + 'm ago';
+            datum.image = getImageSource(datum.lead);
+            datum.description = datum.description || '';
+        }
+
+        return data;
+    };
+
+    var getImageSource = function(html) {
+        if(html) {
+            var div = document.createElement('div');
+            div.innerHTML = html;
+            var img = div.querySelectorAll('img')[0];
+            var src = 'http:' + img.getAttribute('data-fullsrc');
+            return src;
+        } else {
+            return false;
+        }
+    };
+
+    var convertToTimezone = function(offset) {
+
+        clientDate = new Date();
+        utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+
+        newDate = new Date(utc + (3600000 * offset));
+
+        return newDate;
+    };
+
+    window.brief = function(result) {
+        _data = result;
+        if(_data) {
+
+            if(_data.recent) {
+                _data.recent = cleanRecent(_data.recent);
+            }
+
+            if(_data[_choice]) {
+                var data = _data[_choice];
+                displayStories(data);
+            }
+
+            if(_data.updated) {
+                showTime(_data.updated);   
+            }
+
+        } else {
+            console.log('error loading data');
+        }
+    };
+
+    init();
+})();

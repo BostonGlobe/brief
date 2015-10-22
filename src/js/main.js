@@ -1,20 +1,38 @@
 (function() {
-    // var _liteSvg = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="33.15px" height="70.039px" viewBox="116.024 245.139 33.15 70.039" enable-background="new 116.024 245.139 33.15 70.039" xml:space="preserve"><g><g><path d="M123.52,315.178c0,0,24.303-52.74,24.305-52.748l1.35-3c-5.229,1.502-16.91,4.363-16.947,4.475c1.222-3.417,6.484-18.767,6.708-18.767c-4.996,0-9.993,0-14.99,0l-1.524,7.242l-6.397,26.249l16.899-4.601L123.52,315.178z"/></g></g></svg>';
+    var _data;
+    var _choice = 'recent';
+    var _biggerImage = false;
+    var _buttonElements = document.getElementsByClassName('btn');
 
-    window.brief = function(result) {
-        if(result) {
-            if(result.data) {
-                displayStories(result.data);
-            }
-            if(result.updated) {
-                showTime(result.updated);   
-            }
-        } else {
-            console.log('error loading data');
+    var init = function() {
+        loadData();
+        setupSize();
+        setupEvents();
+    };
+
+    var setupSize = function() {
+        var threshold = 640;
+        var width = window.innerWidth * window.devicePixelRatio;
+        _biggerImage = width > threshold;
+    };
+
+    var setupEvents = function() {
+        for(var i = 0; i < _buttonElements.length; i++) {
+            var el = _buttonElements[i];
+            el.addEventListener('click', function(e) {
+                _choice = this.getAttribute('data-choice');
+                displayStories(_data[_choice]);
+                this.classList.add('selected');
+                if (this.nextElementSibling) {
+                    this.nextElementSibling.classList.remove('selected');
+                } else {
+                    this.previousElementSibling.classList.remove('selected');
+                }
+            }, false);
         }
     };
 
-    var init = function() {
+    var loadData = function() {
         var url = 'https://www.boston.com/partners/brief.jsonp?';
         var scriptData = document.createElement('script');
         var date = new Date();
@@ -24,103 +42,89 @@
     };
 
     var displayStories = function(data) {
-        data = validateStories(data);
         var num = data.length;
-        var threshold = 640;
-        var width = window.innerWidth * window.devicePixelRatio;
-        var biggerImage = width > threshold;
-        var results = document.getElementById('results');
+        var storiesEl = document.getElementsByClassName('stories--' + _choice)[0];
 
-        for(var x = 0; x < num; x++ ) {
-            var story = data[x];
-            var description = shortenDescription(story.description);
-            var html = '';
-            html += '<div class="section-and-date"><p class="section">' + story.section + '</p><p class="date">' + story.date + '</p></div>';
-            html += '<div class="image" id="story-image-' + x + '">';
-            // html += '<a class="lite" href="' + getLiteUrl(story.url) + '">' + _liteSvg + '</a>';
-            html += '</div>';
-            html += '<a title="' + story.hed + '" href="' + story.url + '">';
-            html += '<h1 class="hed">' + story.hed + '</h1>';
-            html += '<p class="description">' + description + '</p></div>';
-            html += '</a>';
+        if (storiesEl.querySelectorAll('.story').length < 1) {
+            for(var i = 0; i < num; i++ ) {
+                var datum = data[i];
 
-            var el = document.createElement('div');
-
-            el.innerHTML = html;
-            if (el.classList) { 
-                el.classList.add('story');
-            } else {
-                el.className += ' story';
+                if(shouldDisplay(datum)) {
+                    var html = createHTML(datum, i);
+                    storiesEl.appendChild(html);
+                }
             }
-            results.appendChild(el);
         }
 
-        var loadImage = function(i) {
-            var story = data[i];
-            var img = new Image();
-            var replace = false;
-            
-            img.onload = function() {
-                var bg = 'url(\''+ story.image +'\')';
-                var el = document.getElementById('story-image-' + i);
-                el.style.backgroundImage = bg;
+        // show this choice, hide other
+        var storiesGroup = document.getElementsByClassName('stories-group');
+        storiesGroup[0].classList.add('hide');
+        storiesGroup[1].classList.add('hide');
 
-                //center if ap or bg
-                if(story.image === 'img/ap.jpg' || story.image === 'img/bg.jpg') {
-                    el.style.backgroundPosition = '50% 50%';
-                }
-
-                i++;
-                if(i < num) {
-                    loadImage(i);
-                }
-            };
-
-            img.onerror = function() {
-                console.log('error loading image:', story.image);
-                i++;
-                if(i < num) {
-                    loadImage(i);
-                }
-            };
-
-            //https!
-            story.image = story.image.replace('http', 'https');
-            //handling strange cases and replace with logo and optimal image size
-            if(replaceWithLogo(story.image)) {
-                story.image = 'img/bg.jpg';
-            } else {
-                if(biggerImage) {
-                    story.image = story.image.replace('585w', '835w');    
-                }
-            }
-
-            img.src = story.image;     
-        };
-
-        loadImage(0);
+        storiesEl.classList.remove('hide');
+        document.body.scrollTop =document.documentElement.scrollTop = 0;
     };
 
-    // var getLiteUrl = function(url) {
-    //     var base = 'http://www.boston.com/newsprojects/globe-lite/article.php?url=';
-    //     if(url.indexOf('www.') === -1) {
-    //         var split = url.split('bostonglobe.com');
-    //         split.splice(1,0,'www.bostonglobe.com');
-    //         url = split.join('');
-    //     }
-    //     return base + encodeURIComponent(url);
-    // };
-
-    var validateStories = function(data) {
-        var num = data.length;
-        for(var i = 0; i < num; i++) {
-            if(data[i].hed.indexOf('The Big Picture') > -1) {
-                data.splice(i, 1);
-                num = data.length;
-            }
+    var shouldDisplay = function(datum) {
+        if(!datum.description) {
+            return false;
         }
 
-        return data;
+        var s = datum.section;
+        if (s === 'North' || s === 'South' || s === 'West' || s === 'Real estate') {
+            return false;
+        }
+
+        if(datum.hed.indexOf('The Big Picture') > -1) {
+            return false;
+        }
+
+        return true;
+    };
+
+    var createHTML = function(datum, i) {
+        var description = shortenDescription(datum.description);
+        var time = datum.diff ? datum.diff : datum.date;
+        
+        var html = '';
+        html += '<div class="section-and-date"><p class="section">' + datum.section + '</p><p class="date">' + time + '</p></div>';
+        html += '<div class="image">';
+        html += '</div>';
+        html += '<a title="' + datum.hed + '" href="' + datum.url + '">';
+        html += '<h1 class="hed">' + datum.hed + '</h1>';
+        html += '<p class="description">' + description + '</p></div>';
+        html += '</a>';
+
+        var el = document.createElement('div');
+
+        el.innerHTML = html;
+        el.classList.add('story');
+
+        setBgImage(el, datum);
+        
+        return el;
+    };
+
+    var setBgImage = function(el, datum) {
+        var imgEl = el.querySelectorAll('.image')[0];
+
+        if(replaceWithLogo(datum.image)) {
+            datum.image = 'img/bg.jpg';
+            imgEl.classList.add('hide');
+        } else {
+            img = new Image();
+            replace = false;
+
+            if(_biggerImage) {
+                datum.image = datum.image.replace('585w', '835w');    
+            }
+
+            //https!
+            datum.image = datum.image.replace('http:', 'https:');
+
+            var bg = 'url(\''+ datum.image +'\')';
+            imgEl.style.backgroundImage = bg;
+        }
     };
 
     var replaceWithLogo = function(img) {
@@ -142,13 +146,13 @@
     };
 
     var showTime = function(updated) {
-        var el = document.getElementById('updated');
+        var el = document.getElementsByClassName('updated')[0];
         el.innerText = 'Updated at ' + updated.time;
     };
 
     var shortenDescription = function(str) {
         var max = 240;
-        if(str.length > max) {
+        if(str && str.length > max) {
             var sub = str.substring(0, max);
             var lastSpace = sub.lastIndexOf(' ');
             return sub.substring(0, lastSpace) + '...';
@@ -157,16 +161,67 @@
         }
     };
 
-    // var parseTitle = function(str) {
-    //     var split = str.split('-');
-    //     if(split.length > 2) {
-    //         //if last is blank, it ran out of room, connect everything before that
-    //         split = split.slice(0, split.length - 2);
-    //     } else if(split.length === 2) {
-    //         split = split.slice(0, 1);
-    //     }
-    //     return split.join('-');
-    // };
+    var cleanRecent = function(data) {
+        data.sort(function(a, b){
+          return new Date(b.updated) - new Date(a.updated);
+        });
+
+        // est
+        var now = convertToTimezone(-4.0);
+
+        for (var i = 0; i < data.length; i++ ) {
+            var datum = data[i];
+            datum.diff = Math.round((now - new Date(datum.updated)) / 60000) + 'm ago';
+            datum.image = getImageSource(datum.lead);
+            datum.description = datum.description || '';
+        }
+
+        return data;
+    };
+
+    var getImageSource = function(html) {
+        if(html) {
+            var div = document.createElement('div');
+            div.innerHTML = html;
+            var img = div.querySelectorAll('img')[0];
+            var src = 'http:' + img.getAttribute('data-fullsrc');
+            return src;
+        } else {
+            return false;
+        }
+    };
+
+    var convertToTimezone = function(offset) {
+
+        clientDate = new Date();
+        utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+
+        newDate = new Date(utc + (3600000 * offset));
+
+        return newDate;
+    };
+
+    window.brief = function(result) {
+        _data = result;
+        if(_data) {
+
+            if(_data.recent) {
+                _data.recent = cleanRecent(_data.recent);
+            }
+
+            if(_data[_choice]) {
+                var data = _data[_choice];
+                displayStories(data);
+            }
+
+            if(_data.updated) {
+                showTime(_data.updated);   
+            }
+
+        } else {
+            console.log('error loading data');
+        }
+    };
 
     init();
 })();

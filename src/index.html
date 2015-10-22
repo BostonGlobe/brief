@@ -19,13 +19,18 @@
     <body>
         <div class='container'>
             <div class='header'>
-                <div class='logo'><a href='http://bostonglobe.com'></a></div>
+                <div class='logo'><a href='http://bostonglobe.com'>
+                    @@include('img/logo.svg')
+                </a></div>
                 <div class='explanation'>
-                    A brief look at new &amp; trending stories
+                    A brief look at <button class='btn selected' data-choice='recent'>new</button> &amp; <button class='btn' data-choice='chartbeat'>trending</button> stories
                 </div>
-                <div id='updated'></div>
+                <div class='updated'></div>
             </div>
-            <div id='results'></div>
+            <div class='stories'>
+                <div class='stories-group stories--recent hide'></div>
+                <div class='stories-group stories--chartbeat hide'></div>
+            </div>
         </div>
         <script>
             @@include('temp/main.js')
