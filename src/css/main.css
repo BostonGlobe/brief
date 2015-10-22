@@ -1,3 +1,4 @@
+/* reset */
 /* common */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -43,6 +44,9 @@ table {
     border-spacing: 0;
 }
 
+
+
+/* custom */
 * {
     margin: 0;
     padding: 0;
@@ -66,37 +70,73 @@ a, a:visited {
 
 button {
     border: none;
+    border-radius: 2px;
     background: none;
-    font-size: 1em;
+    font-size: 0.75em;
     color: #888;
     font-family: Helvetica, Arial, sans-serif; 
     font-weight: 300;
-    background-color: rgba(89, 136, 157, 0.2);
-    padding: 0.2em 0.6em;
+    background-color: rgba(89, 136, 157, 0.4);
+    padding: 0.4em 0.8em;
     cursor: pointer;
+    outline: none;
+    color: #aaa;
+    text-transform: uppercase;
 }
 
 button.selected {
-    background-color: rgba(89, 136, 157, 0.8);
+    background-color: rgba(89, 136, 157, 1);
     color: #efefef;
 }
 
-.logo a {
-    display: block;
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    background: #222;
 }
 
-.logo a svg {
-    height: 20px;
-    width: 150px;
-}
-
-.header {
-    padding-bottom: 0.25em;
-    /*border-bottom: 1px dotted #ddd;*/
+nav {
     max-width: 480px;
     margin: 0 auto;
-    text-align: center;
+    height: 100%;
+    overflow: hidden;
+    padding: 0.5em 0;
 }
+
+a.nav-logo {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: bottom;
+}
+
+a.nav-logo svg {
+    height: 18px;
+    width: 135px;
+}
+
+.nav-choices {
+    float: right;
+    height: 100%;
+    overflow: hidden;
+}
+
+.btn-choice {
+    float: left;
+}
+
+.btn-choice:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn-choice:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 
 .explanation {
     font-size: 0.9em;
@@ -121,7 +161,7 @@ button.selected {
 }
 
 .stories {
-    margin: 1.5em auto;
+    margin: 3em auto 1em auto;
     width: 100%;
     max-width: 480px;
     height: 100%;
@@ -138,9 +178,9 @@ button.selected {
     height: 100%;
     overflow: hidden;
     font-size: 0.8em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    border-top: 1px solid #efefef;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid #efefef;
 }
 
 .section {
@@ -190,7 +230,8 @@ button.selected {
     font-family: 'Miller', Georgia, serif;
     line-height: 1.4;
     font-size: 1.3em;
-    letter-spacing: normal;
+    font-weight: bold;
+    letter-spacing: 0.01em;
 }
 
 .description {
@@ -223,6 +264,10 @@ a.lite {
     padding-bottom: 2em;
 }
 
+.btn-top {
+    font-size: 1em;
+}
+
 @media only screen and (max-width: 500px) {
     .story a {
         padding-left: 0.75em;
@@ -231,5 +276,8 @@ a.lite {
     .section-and-date {
         padding-left: 1em;
         padding-right: 1em;
+    }
+    nav {
+        padding: 0.5em;
     }
 }

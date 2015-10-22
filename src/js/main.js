@@ -226,7 +226,7 @@
             }
 
             if(_data.updated) {
-                showTime(_data.updated);   
+                // showTime(_data.updated);   
             }
 
             _loaded = true;
