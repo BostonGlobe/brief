@@ -1,6 +1,6 @@
 (function() {
     var _data;
-    var _choice = 'recent';
+    var _choice = 'chartbeat';
     var _biggerImage = false;
     var _buttonElements = document.getElementsByClassName('btn-choice');
     var _loaded;
