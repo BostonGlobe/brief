@@ -93,9 +93,13 @@
     var createHTML = function(datum, i) {
         var description = shortenDescription(datum.description);
         var time = datum.diff ? datum.diff : datum.date;
+        var section = datum.section;
+
+        time = time || '';
+        section = section || 'Special';
         
         var html = '';
-        html += '<div class="section-and-date"><p class="section">' + datum.section + '</p><p class="date">' + time + '</p></div>';
+        html += '<div class="section-and-date"><p class="section">' + section + '</p><p class="date">' + time + '</p></div>';
         html += '<div class="image">';
         html += '</div>';
         html += '<a title="' + datum.hed + '" href="' + datum.url + '">';
