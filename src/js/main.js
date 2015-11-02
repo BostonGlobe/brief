@@ -179,7 +179,7 @@
         });
 
         // est
-        var now = convertToTimezone(-3.0);
+        var now = convertToTimezone(-5.0);
 
         for (var i = 0; i < data.length; i++ ) {
             var datum = data[i];
