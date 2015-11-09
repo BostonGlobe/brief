@@ -36,6 +36,12 @@
 
         var topEl = document.getElementsByClassName('btn-top')[0];
         topEl.addEventListener('click', function(e) {
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Navigation',
+                eventAction: 'click',
+                eventLabel: 'Back to top'
+            });
             document.body.scrollTop = document.documentElement.scrollTop = 0;
         }, false);
     };
@@ -213,6 +219,17 @@
         return newDate;
     };
 
+    var loadTime = function() {
+        if (window.performance) {
+            ga('send', {
+              hitType: 'timing',
+              timingCategory: 'Performance',
+              timingVar: 'load',
+              timingValue: performance.now()
+            });
+        }
+    };
+
     window.brief = function(result) {
         _data = result;
         var loadingEl = document.getElementsByClassName('loading')[0];
@@ -240,6 +257,8 @@
         } else {
             pEl.innerText = 'Error loading data.';
         }
+
+        loadTime();
     };
 
     init();
