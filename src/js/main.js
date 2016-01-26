@@ -36,18 +36,12 @@
 
         var topEl = document.getElementsByClassName('btn-top')[0];
         topEl.addEventListener('click', function(e) {
-            ga('send', {
-                hitType: 'event',
-                eventCategory: 'Navigation',
-                eventAction: 'click',
-                eventLabel: 'Back to top'
-            });
             document.body.scrollTop = document.documentElement.scrollTop = 0;
         }, false);
     };
 
     var loadData = function() {
-        var url = 'https://www.boston.com/partners/brief.jsonp?';
+        var url = 'http://apps.boston.com/cron/brief.jsonp?';
         var scriptData = document.createElement('script');
         var date = new Date();
         var v = '_=' + date.getTime();
@@ -219,17 +213,6 @@
         return newDate;
     };
 
-    var loadTime = function() {
-        if (window.performance) {
-            ga('send', {
-              hitType: 'timing',
-              timingCategory: 'Performance',
-              timingVar: 'load',
-              timingValue: performance.now()
-            });
-        }
-    };
-
     window.brief = function(result) {
         _data = result;
         var loadingEl = document.getElementsByClassName('loading')[0];
@@ -257,8 +240,6 @@
         } else {
             pEl.innerText = 'Error loading data.';
         }
-
-        loadTime();
     };
 
     init();
