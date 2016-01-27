@@ -41,7 +41,7 @@
     };
 
     var loadData = function() {
-        var url = 'http://apps.boston.com/cron/brief.jsonp?';
+        var url = 'https://apps.boston.com/cron/brief.jsonp?';
         var scriptData = document.createElement('script');
         var date = new Date();
         var v = '_=' + date.getTime();
