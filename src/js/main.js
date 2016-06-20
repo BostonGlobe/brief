@@ -179,11 +179,14 @@
         });
 
         // est
-        var now = convertToTimezone(-5.0);
+        // var now = convertToTimezone(-5.0);
+        var now = new Date()
 
         for (var i = 0; i < data.length; i++ ) {
             var datum = data[i];
-            datum.diff = Math.round((now - new Date(datum.updated)) / 60000) + 'm ago';
+            var gmt = new Date(datum.updated)
+            // datum.diff = Math.round((now - new Date(datum.updated)) / 60000) + 'm ago';
+            datum.diff = Math.round((now.getTime() - gmt) / 60000) + 'm ago'
             datum.image = getImageSource(datum.lead);
             datum.description = datum.description || '';
         }
